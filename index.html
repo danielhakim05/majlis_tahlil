@@ -3,7 +3,7 @@
  <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kenduri Tahlil Keluarga Zahidah binti Kamarudin</title>
+  <title>Calendar Event Invitation</title>
   <script src="/_sdk/element_sdk.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -78,7 +78,7 @@
     <div id="eventCard" class="rounded-3xl shadow-2xl p-8 md:p-12 text-center"><!-- Islamic Pattern Decoration -->
      <h1 id="eventName" class="text-3xl md:text-4xl font-bold mb-6 leading-tight">KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN</h1>
      <div class="mb-8">
-      <div class="flex items-center justify-center gap-3 mb-4"><span class="text-2xl">📅</span> <span id="eventDateTime" class="text-xl md:text-2xl font-semibold"> Sabtu, 27 Disember 2025, 10:00 - 16:00</span>
+      <div class="flex items-center justify-center gap-3 mb-4"><span class="text-2xl">📅</span> <span id="eventDateTime" class="text-xl md:text-2xl font-semibold"> Sabtu, 27 Disember 2025, 10:00 - 16:00 </span>
       </div>
      </div>
      <div class="mb-8 p-6 rounded-2xl">
@@ -86,7 +86,7 @@
       <div id="eventDescription" class="text-lg leading-relaxed whitespace-pre-line">
        10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL 11.00 - 4.00 PETANG JAMUAN MAKAN
       </div>
-     </div><button id="addToCalendarBtn" class="px-8 py-4 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-3 mx-auto"><span class="text-2xl"></span><span id="addCalendarText">Tambah ke kalendar</span></button>
+     </div><button id="addToCalendarBtn" class="px-8 py-4 rounded-xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-3 mx-auto"> <span class="text-2xl"></span> <span id="addCalendarText">Tambah ke Kalendar</span> </button>
     </div>
    </div>
   </div><!-- Calendar Modal -->
@@ -110,7 +110,7 @@
       font_family: "system-ui",
       font_size: 16,
       event_name: "KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN",
-      event_date: "Sabtu, 27 Disember 2025, 10:00 - 16:00",
+      event_date: "Sabtu, 27 Disember 2025, 10:00 - 16:00 ",
       event_description: "10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL \n11.00 - 4.00 PETANG JAMUAN MAKAN",
       add_calendar_text: "Tambah ke Kalendar"
     };
@@ -120,7 +120,7 @@
       title: "KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN",
       startDate: "20241227T020000Z", // 10:00 GMT+8 = 02:00 UTC
       endDate: "20241227T080000Z",   // 16:00 GMT+8 = 08:00 UTC
-      description: "10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL\n11.00 - 4.00 PETANG JAMUAN MAKAN",
+      description: "10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL. 11.00 - 4.00 PETANG JAMUAN MAKAN",
       location: ""
     };
 
@@ -322,10 +322,6 @@ END:VCALENDAR`
       const links = generateCalendarLinks();
       
       document.getElementById('googleBtn').href = links.google;
-      document.getElementById('outlookBtn').href = links.outlook;
-      document.getElementById('office365Btn').href = links.office365;
-      document.getElementById('outlookcomBtn').href = links.outlook;
-      document.getElementById('yahooBtn').href = links.yahoo;
 
       // Apple calendar downloads the .ics file
       document.getElementById('appleBtn').addEventListener('click', (e) => {
@@ -340,19 +336,16 @@ END:VCALENDAR`
         calendarModal.classList.remove('show');
       });
 
-      // Add target="_blank" to external links
-      const externalLinks = ['googleBtn', 'outlookBtn', 'office365Btn', 'outlookcomBtn', 'yahooBtn'];
-      externalLinks.forEach(id => {
-        const link = document.getElementById(id);
-        link.target = '_blank';
-        link.rel = 'noopener noreferrer';
-        link.addEventListener('click', () => {
-          setTimeout(() => calendarModal.classList.remove('show'), 500);
-        });
+      // Add target="_blank" to Google Calendar link
+      const googleBtn = document.getElementById('googleBtn');
+      googleBtn.target = '_blank';
+      googleBtn.rel = 'noopener noreferrer';
+      googleBtn.addEventListener('click', () => {
+        setTimeout(() => calendarModal.classList.remove('show'), 500);
       });
     }
 
     initializeApp();
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99bc77fd16e088e1',t:'MTc2MjY4MjQ4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99bcae3f4752f004',t:'MTc2MjY4NDcwOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
