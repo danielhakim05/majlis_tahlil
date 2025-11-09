@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kenduri Tahlil Keluarga Zahidah binti Kamarudin</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    html {
+      height: 100%;
+    }
+    .calendar-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    .calendar-modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    .calendar-modal.show .modal-content {
+      transform: scale(1);
+    }
+    .calendar-button {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+    }
+    .calendar-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    .apple { background: linear-gradient(135deg, #000000, #333333); color: white; }
+    .google { background: linear-gradient(135deg, #4285f4, #34a853); color: white; }
+    .office365 { background: linear-gradient(135deg, #0078d4, #106ebe); color: white; }
+    .outlook { background: linear-gradient(135deg, #0078d4, #005a9e); color: white; }
+    .outlookcom { background: linear-gradient(135deg, #0078d4, #40e0d0); color: white; }
+    .yahoo { background: linear-gradient(135deg, #6001d2, #9d4edd); color: white; }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body>
+  <div id="app" class="min-h-full flex items-center justify-center p-6">
+   <div class="w-full max-w-4xl"><!-- Event Card -->
+    <div id="eventCard" class="rounded-3xl shadow-2xl p-8 md:p-12 text-center"><!-- Islamic Pattern Decoration -->
+     <h1 id="eventName" class="text-3xl md:text-4xl font-bold mb-6 leading-tight">KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN</h1>
+     <div class="mb-8">
+      <div class="flex items-center justify-center gap-3 mb-4"><span class="text-2xl">📅</span> <span id="eventDateTime" class="text-xl md:text-2xl font-semibold"> Sabtu, 27 Disember 2025, 10:00 - 16:00</span>
+      </div>
+     </div>
+     <div class="mb-8 p-6 rounded-2xl">
+      <h3 class="text-xl font-bold mb-4 flex items-center justify-center gap-2"><span>📋</span> Atur Cara</h3>
+      <div id="eventDescription" class="text-lg leading-relaxed whitespace-pre-line">
+       10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL 11.00 - 4.00 PETANG JAMUAN MAKAN
+      </div>
+     </div><button id="addToCalendarBtn" class="px-8 py-4 rounded-2xl font-bold text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-3 mx-auto"><span class="text-2xl"></span><span id="addCalendarText">Tambah ke kalendar</span></button>
+    </div>
+   </div>
+  </div><!-- Calendar Modal -->
+  <div id="calendarModal" class="calendar-modal">
+   <div class="modal-content">
+    <div class="text-center mb-6">
+     <h2 class="text-2xl font-bold mb-2">Pilih Kalendar Anda</h2>
+     <p class="opacity-70">Pilih kalendar mengikut kesesuaian anda</p>
+    </div>
+    <div class="space-y-3"><a href="#" id="appleBtn" class="calendar-button apple"> <span class="text-xl"></span> <span>Apple Calendar</span> </a> <a href="#" id="googleBtn" class="calendar-button google"> <span class="text-xl"></span> <span>Google Calendar</span> </a> <a href="#" id="office365Btn" class="calendar-button office365"> <span class="text-xl"></span> <span>Office 365</span> </a> <a href="#" id="outlookBtn" class="calendar-button outlook"> <span class="text-xl"></span> <span>Outlook</span> </a> <a href="#" id="outlookcomBtn" class="calendar-button outlookcom"> <span class="text-xl"></span> <span>Outlook.com</span> </a> <a href="#" id="yahooBtn" class="calendar-button yahoo"> <span class="text-xl"></span> <span>Yahoo Calendar</span> </a>
+    </div><button id="closeModal" class="w-full mt-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:opacity-80"> Tutup </button>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_color: "#f8fafc",
+      surface_color: "#ffffff",
+      text_color: "#1e293b",
+      primary_action_color: "#059669",
+      secondary_action_color: "#64748b",
+      font_family: "system-ui",
+      font_size: 16,
+      event_name: "KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN",
+      event_date: "Sabtu, 27 Disember 2025, 10:00 - 16:00",
+      event_description: "10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL \n11.00 - 4.00 PETANG JAMUAN MAKAN",
+      add_calendar_text: "Tambah ke Kalendar"
+    };
+
+    // Event details for calendar links
+    const eventDetails = {
+      title: "KENDURI TAHLIL KELUARGA ZAHIDAH BINTI KAMARUDIN",
+      startDate: "20241227T020000Z", // 10:00 GMT+8 = 02:00 UTC
+      endDate: "20241227T080000Z",   // 16:00 GMT+8 = 08:00 UTC
+      description: "10.00 - 11.00 PAGI BACAAN YAASIN DAN TAHLIL\n11.00 - 4.00 PETANG JAMUAN MAKAN",
+      location: ""
+    };
+
+    function generateCalendarLinks() {
+      const { title, startDate, endDate, description, location } = eventDetails;
+      
+      return {
+        google: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`,
+        
+        outlook: `https://outlook.live.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}&startdt=${startDate}&enddt=${endDate}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`,
+        
+        office365: `https://outlook.office.com/calendar/0/deeplink/compose?subject=${encodeURIComponent(title)}&startdt=${startDate}&enddt=${endDate}&body=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}`,
+        
+        yahoo: `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(title)}&st=${startDate}&et=${endDate}&desc=${encodeURIComponent(description)}&in_loc=${encodeURIComponent(location)}`,
+        
+        apple: `data:text/calendar;charset=utf8,BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+DTSTART:${startDate}
+DTEND:${endDate}
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+END:VEVENT
+END:VCALENDAR`
+      };
+    }
+
+    async function onConfigChange(config) {
+      const baseFont = config.font_family || defaultConfig.font_family;
+      const baseFontStack = 'system-ui, -apple-system, sans-serif';
+      const customFont = `${baseFont}, ${baseFontStack}`;
+      const baseSize = config.font_size || defaultConfig.font_size;
+
+      const backgroundColor = config.background_color || defaultConfig.background_color;
+      const surfaceColor = config.surface_color || defaultConfig.surface_color;
+      const textColor = config.text_color || defaultConfig.text_color;
+      const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+      const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+
+      document.body.style.backgroundColor = backgroundColor;
+      document.body.style.color = textColor;
+      document.body.style.fontFamily = customFont;
+
+      const eventCard = document.getElementById('eventCard');
+      eventCard.style.backgroundColor = surfaceColor;
+
+      const eventName = document.getElementById('eventName');
+      eventName.textContent = config.event_name || defaultConfig.event_name;
+      eventName.style.fontSize = `${baseSize * 2}px`;
+      eventName.style.color = textColor;
+      eventName.style.fontFamily = customFont;
+
+      const eventDateTime = document.getElementById('eventDateTime');
+      eventDateTime.textContent = config.event_date || defaultConfig.event_date;
+      eventDateTime.style.fontSize = `${baseSize * 1.25}px`;
+      eventDateTime.style.color = textColor;
+      eventDateTime.style.fontFamily = customFont;
+
+      const eventDescription = document.getElementById('eventDescription');
+      eventDescription.textContent = config.event_description || defaultConfig.event_description;
+      eventDescription.style.fontSize = `${baseSize * 1.125}px`;
+      eventDescription.style.color = textColor;
+      eventDescription.style.fontFamily = customFont;
+
+      const programSection = eventDescription.parentElement;
+      programSection.style.backgroundColor = backgroundColor;
+
+      const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+      addToCalendarBtn.style.backgroundColor = primaryColor;
+      addToCalendarBtn.style.color = '#ffffff';
+      addToCalendarBtn.style.fontSize = `${baseSize * 1.25}px`;
+      addToCalendarBtn.style.fontFamily = customFont;
+
+      const addCalendarText = document.getElementById('addCalendarText');
+      addCalendarText.textContent = config.add_calendar_text || defaultConfig.add_calendar_text;
+
+      const modalContent = document.querySelector('.modal-content');
+      modalContent.style.backgroundColor = surfaceColor;
+      modalContent.style.color = textColor;
+
+      const closeModal = document.getElementById('closeModal');
+      closeModal.style.backgroundColor = secondaryColor;
+      closeModal.style.color = '#ffffff';
+    }
+
+    function initializeApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities: (config) => ({
+            recolorables: [
+              {
+                get: () => config.background_color || defaultConfig.background_color,
+                set: (value) => {
+                  config.background_color = value;
+                  window.elementSdk.setConfig({ background_color: value });
+                }
+              },
+              {
+                get: () => config.surface_color || defaultConfig.surface_color,
+                set: (value) => {
+                  config.surface_color = value;
+                  window.elementSdk.setConfig({ surface_color: value });
+                }
+              },
+              {
+                get: () => config.text_color || defaultConfig.text_color,
+                set: (value) => {
+                  config.text_color = value;
+                  window.elementSdk.setConfig({ text_color: value });
+                }
+              },
+              {
+                get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                set: (value) => {
+                  config.primary_action_color = value;
+                  window.elementSdk.setConfig({ primary_action_color: value });
+                }
+              },
+              {
+                get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                set: (value) => {
+                  config.secondary_action_color = value;
+                  window.elementSdk.setConfig({ secondary_action_color: value });
+                }
+              }
+            ],
+            borderables: [],
+            fontEditable: {
+              get: () => config.font_family || defaultConfig.font_family,
+              set: (value) => {
+                config.font_family = value;
+                window.elementSdk.setConfig({ font_family: value });
+              }
+            },
+            fontSizeable: {
+              get: () => config.font_size || defaultConfig.font_size,
+              set: (value) => {
+                config.font_size = value;
+                window.elementSdk.setConfig({ font_size: value });
+              }
+            }
+          }),
+          mapToEditPanelValues: (config) => new Map([
+            ["event_name", config.event_name || defaultConfig.event_name],
+            ["event_date", config.event_date || defaultConfig.event_date],
+            ["event_description", config.event_description || defaultConfig.event_description],
+            ["add_calendar_text", config.add_calendar_text || defaultConfig.add_calendar_text]
+          ])
+        });
+
+        onConfigChange(window.elementSdk.config);
+      } else {
+        onConfigChange(defaultConfig);
+      }
+
+      // Event listeners
+      const addToCalendarBtn = document.getElementById('addToCalendarBtn');
+      const calendarModal = document.getElementById('calendarModal');
+      const closeModal = document.getElementById('closeModal');
+
+      addToCalendarBtn.addEventListener('click', () => {
+        calendarModal.classList.add('show');
+      });
+
+      closeModal.addEventListener('click', () => {
+        calendarModal.classList.remove('show');
+      });
+
+      calendarModal.addEventListener('click', (e) => {
+        if (e.target === calendarModal) {
+          calendarModal.classList.remove('show');
+        }
+      });
+
+      // Set up calendar links
+      const links = generateCalendarLinks();
+      
+      document.getElementById('googleBtn').href = links.google;
+      document.getElementById('outlookBtn').href = links.outlook;
+      document.getElementById('office365Btn').href = links.office365;
+      document.getElementById('outlookcomBtn').href = links.outlook;
+      document.getElementById('yahooBtn').href = links.yahoo;
+
+      // Apple calendar downloads the .ics file
+      document.getElementById('appleBtn').addEventListener('click', (e) => {
+        e.preventDefault();
+        const element = document.createElement('a');
+        element.setAttribute('href', links.apple);
+        element.setAttribute('download', 'event.ics');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+        calendarModal.classList.remove('show');
+      });
+
+      // Add target="_blank" to external links
+      const externalLinks = ['googleBtn', 'outlookBtn', 'office365Btn', 'outlookcomBtn', 'yahooBtn'];
+      externalLinks.forEach(id => {
+        const link = document.getElementById(id);
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.addEventListener('click', () => {
+          setTimeout(() => calendarModal.classList.remove('show'), 500);
+        });
+      });
+    }
+
+    initializeApp();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99bc77fd16e088e1',t:'MTc2MjY4MjQ4NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
